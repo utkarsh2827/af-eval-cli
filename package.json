@@ -1,0 +1,36 @@
+{
+  "name": "af-eval-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && chmod 755 build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/utkarsh2827/af-eval-cli.git"
+  },
+  "files": [
+    "build"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/utkarsh2827/af-eval-cli/issues"
+  },
+  "homepage": "https://github.com/utkarsh2827/af-eval-cli#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.0",
+    "typescript": "^5.9.3"
+  },
+  "bin": {
+    "af-eval-cli": "./build/index.js"
+  }
+}
