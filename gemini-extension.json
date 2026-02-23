@@ -1,0 +1,13 @@
+{
+  "name": "af-eval-cli",
+  "version": "1.0.0",
+  "mcpServers": {
+    "notes-server": {
+      "command": "node",
+      "args": [
+        "${extensionPath}/build/index.js",
+        "com.google.gemini.app.notes"
+      ]
+    }
+  }
+}
