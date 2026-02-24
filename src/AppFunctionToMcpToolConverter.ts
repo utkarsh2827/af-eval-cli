@@ -23,6 +23,7 @@ interface DataTypeMetadata {
     properties?: Array<{
         name: string[];
         dataTypeMetadata: DataTypeMetadata[];
+        // TODO: Add description
     }>;
     required?: string[];
     itemType?: DataTypeMetadata[];
@@ -39,9 +40,11 @@ interface AppFunctionStaticMetadata {
         name: string[];
         isRequired: boolean[];
         dataTypeMetadata: DataTypeMetadata[];
+        // TODO: Add description
     }>;
     response: Array<{
         valueType: DataTypeMetadata[];
+        // TODO: Add description
     }>;
     description: string[];
 }
