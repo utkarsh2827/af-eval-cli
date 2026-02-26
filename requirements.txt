@@ -1,0 +1,6 @@
+deepeval
+mcp
+openai
+anthropic
+google-generativeai
+google-genai

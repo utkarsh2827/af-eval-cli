@@ -1,0 +1,55 @@
+[
+    {
+        "input": "Find all tasks containing the word 'grocery'",
+        "expected_tool": "findTasks",
+        "expected_args": {
+            "query": "grocery"
+        }
+    },
+    {
+        "input": "Get the latest 5 tasks modified after 2024-01-01 about 'meeting'",
+        "expected_tool": "findTasks",
+        "expected_args": {
+            "query": "meeting",
+            "modifiedAfter": "2024-01-01",
+            "maxCount": 5
+        }
+    },
+    {
+        "input": "Create a new task to buy milk. The description should be 'Get 2 gallons of whole milk' and it should not repeat.",
+        "expected_tool": "createTask",
+        "expected_args": {
+            "title": "buy milk",
+            "content": "Get 2 gallons of whole milk",
+            "recurrenceSchedule": "none"
+        }
+    },
+    {
+        "input": "Add a weekly task called 'Take out trash' with content 'Take bins to the curb'.",
+        "expected_tool": "createTask",
+        "expected_args": {
+            "title": "Take out trash",
+            "content": "Take bins to the curb",
+            "recurrenceSchedule": "weekly"
+        }
+    },
+    {
+        "input": "Delete the tasks with IDs task-123 and task-456.",
+        "expected_tool": "deleteTasks",
+        "expected_args": {
+            "taskIds": [
+                "task-123",
+                "task-456"
+            ]
+        }
+    },
+    {
+        "input": "I need a reminder to pay rent. Title it 'Pay Rent' with content 'Transfer money to landlord' and make it repeat monthly.",
+        "expected_tool": "createTask",
+        "expected_args": {
+            "title": "Pay Rent",
+            "content": "Transfer money to landlord",
+            "recurrenceSchedule": "monthly"
+        }
+    }
+]

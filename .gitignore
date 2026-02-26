@@ -23,3 +23,14 @@ yarn-error.log*
 # Environment
 .env
 .env.local
+
+# Python
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+
+# Eval Output
+.deepeval/
