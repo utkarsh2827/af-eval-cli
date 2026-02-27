@@ -1,70 +1,102 @@
 # App Function Evaluation CLI
 
-A command-line interface for evaluating App Functions using Gemini CLI and MCP Inspector.
+A robust toolkit for bridging Android AppFunctions to the **Model Context Protocol (MCP)**. This project provides a foundational bridge and a **developer template** for programmatic evaluation using the Gemini SDK and DeepEval.
 
-## Features
+---
 
-- **App Function to MCP Tool Conversion**: Converts App Functions to MCP tools.
-- **Evaluation**: Evaluates App Functions with Gemini CLI and MCP Inspector.
+## 🚀 Features
 
-## Installation
+* **MCP Bridging**: Automatically exposes Android App's AppFunctions as an MCP Server.
+* **Evaluation Framework (Template)**: A scaffold for running metric-based tests (`MCPUseMetric`, `ToolCorrectnessMetric`) against AI-driven app interactions.
+* **Interactive Debugging**: Full compatibility with the MCP Inspector for manual function testing.
+---
+
+## 🛠 Setup & Installation
+
+This project requires **Node.js** (for the MCP server) and **Python 3.9+** (for the evaluation framework).
+
+### 1. Node.js Environment
+
+Install the CLI dependencies to manage the MCP server lifecycle:
 
 ```bash
 npm install -g .
+
 ```
 
-## Usage
+### 2. Python Environment (For Custom Evals)
 
-### Run MCP Inspector
+The evaluation scripts are provided as templates. Set up a virtual environment to begin customizing your tests:
 
-```bash
-npx @modelcontextprotocol/inspector node build/index.js <package_name>
-```
-
-### Run DeepEval Evaluation Script
-
-You can evaluate the App Functions using the provided `eval_mcp.py` script. This script reads test cases from a JSON file, uses an LLM of your choice to act as an agent, and uses DeepEval's `MCPUseMetric` to evaluate the interactions.
-
-**Setup**:
-1. Ensure your Python virtual environment is set up and dependencies are installed (DeepEval, MCP, Anthropic, etc.).
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+
 ```
 
-2. Export your API key for the agent you plan to use:
+### 3. API Configuration
+
 ```bash
 export GEMINI_API_KEY="your-gemini-key"
+# Optional: For syncing custom results to the DeepEval dashboard
+export CONFIDENT_API_KEY="your-confident-ai-key"
+
 ```
 
-**Run Evaluation**:
+---
 
-1. Write test cases in `test_cases.json`:
+## 📖 Usage
+
+### Manual Testing (MCP Inspector)
+
+Before writing automated scripts, verify your functions are correctly exposed to the protocol:
+
+```bash
+npx @modelcontextprotocol/inspector node build/index.js <package_name>
+
+```
+
+### Automated Evaluation (Template)
+
+The included `eval_mcp.py` is a **reference implementation**. Developers are encouraged to modify this script or use it as a boilerplate to fit their specific tool-calling schemas and agentic workflows.
+
+#### 1. Define Your Test Cases
+
+Create a `test_cases.json` to define the ground truth for your functions:
+
 ```json
 [
   {
-        "input": "Create a new task to buy milk. The description should be 'Get 2 gallons of whole milk' and it should not repeat.",
-        "expected_tool": "createTask",
-        "expected_args": {
-            "title": "buy milk",
-            "content": "Get 2 gallons of whole milk",
-            "recurrenceSchedule": "none"
-        }
+    "input": "Create a new task to buy milk. The description should be 'Get 2 gallons of whole milk'.",
+    "expected_tool": "createTask",
+    "expected_args": {
+      "title": "buy milk",
+      "content": "Get 2 gallons of whole milk"
     }
+  }
 ]
 ```
 
-2. Run the script:
+#### 2. Run/Modify the Eval Script
+
 ```bash
-python eval_mcp.py --package <package_name> --test-cases test_cases.json --model gemini-3-flash-preview
+python eval_mcp.py --package <package_name> --test-cases test_cases.json --model gemini-2.0-flash
+
 ```
 
-Available arguments:
-- `--package`: (Required) The Android package name containing the App Functions.
-- `--test-cases`: Path to the JSON file containing test cases (default: `test_cases.json`).
-- `--model`: The LLM model to use as the agent (default: `gemini-2.5-flash`).
+| Argument | Description | Default |
+| --- | --- | --- |
+| `--package` | **(Required)** The Android package name. | N/A |
+| `--test-cases` | Path to your JSON test definitions. | `test_cases.json` |
+| `--model` | The Gemini model used to drive the agent. | `gemini-2.0-flash` |
 
-To view the results in a dashboard, you can optionally set `CONFIDENT_API_KEY` before running the evaluation.
+---
 
+## 📈 Customizing the Evaluation
 
+This project is built to be a starting point. You can extend the provided Python templates to include:
+
+* **Custom DeepEval Metrics**: Implement `BaseMetric` to handle fuzzy matching for complex Android-specific arguments.
+* **Latency Benchmarks**: Measure the round-trip time of App Function responses via the MCP bridge.
+* **Integration Tests**: Script complex multi-step interactions where one App Function output serves as the input for another.
