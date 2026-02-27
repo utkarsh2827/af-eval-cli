@@ -69,8 +69,9 @@ function flattenWithSchema(data: any, schema: any): any {
 const server = new McpServer({
     name: "af-eval-cli",
     version: "1.0.0",
-    // TODO: Read from adb.
-    description: `
+    // TODO: Read from adb
+}, {
+    instructions: `
     You are a precise Task Management Agent. Your sole purpose is to convert user requests into tool calls for the 'com.google.gemini.app.notes' package.
 
     Follow these strict operational rules:
@@ -83,7 +84,7 @@ const server = new McpServer({
     - For 'findTasks': Map "limit" or "latest X" to 'maxCount'.
     - For 'createTask': Extract the 'title' and 'content' concisely. If no title is clear, use the first few words of the task.
     5. NO REDUNDANCY: Do not ask "how would you like to schedule it" if the user has already provided a scheduling instruction (including "no repeat").
-`.trim(),
+`,
 });
 
 async function initialize() {
